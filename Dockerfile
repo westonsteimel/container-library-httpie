@@ -1,5 +1,6 @@
 FROM python:3-alpine
 
+LABEL "version"="1.0.2"
 ENV HTTPIE_VERSION 1.0.2
 
 RUN apk --no-cache add \
