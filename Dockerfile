@@ -1,7 +1,9 @@
+ARG HTTPIE_VERSION="1.0.2"
+
 FROM python:3-alpine
 
-LABEL "version"="1.0.2"
-ENV HTTPIE_VERSION 1.0.2
+ARG HTTPIE_VERSION
+ENV HTTPIE_VERSION "${HTTPIE_VERSION}"
 
 RUN apk --no-cache add \
 	ca-certificates \
@@ -13,3 +15,7 @@ USER httpie
 WORKDIR /home/httpie
 
 ENTRYPOINT [ "http" ]
+
+LABEL org.opencontainers.image.url="https://github.com/westonsteimel/docker-httpie" \ 
+    org.opencontainers.image.source="https://github.com/westonsteimel/docker-httpie" \
+    org.opencontainers.image.version="${HTTPIE_VERSION}"
