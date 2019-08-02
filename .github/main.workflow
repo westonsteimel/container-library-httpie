@@ -13,14 +13,21 @@ action "Login DockerHub" {
 
 action "Docker Build" {
   uses = "actions/docker/cli@86ff551d26008267bb89ac11198ba7f1d807b699"
-  needs = ["Login DockerHub"]
   args = "build -t \"${DOCKER_USERNAME}/httpie:latest\" ."
+  secrets = ["DOCKER_USERNAME"]
+  needs = ["Login DockerHub"]
+}
+
+action "Docker Tag" {
+  uses = "actions/docker/cli@86ff551d26008267bb89ac11198ba7f1d807b699"
+  needs = ["Docker Build"]
+  runs = ["./tag.sh"]
   secrets = ["DOCKER_USERNAME"]
 }
 
 action "Docker Push" {
   uses = "actions/docker/cli@86ff551d26008267bb89ac11198ba7f1d807b699"
-  needs = ["Docker Build"]
+  needs = ["Docker Tag"]
   args = "push \"${DOCKER_USERNAME}/httpie\""
   secrets = ["DOCKER_USERNAME"]
 }
