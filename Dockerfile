@@ -20,5 +20,6 @@ LABEL org.opencontainers.image.title="httpie" \
     org.opencontainers.image.description="httpie in Docker" \ 
     org.opencontainers.image.url="https://github.com/westonsteimel/docker-httpie" \ 
     org.opencontainers.image.source="https://github.com/westonsteimel/docker-httpie" \
-    org.opencontainers.image.version="${HTTPIE_VERSION}"
+    org.opencontainers.image.version="${HTTPIE_VERSION}" \
+    version="${HTTPIE_VERSION}"
 

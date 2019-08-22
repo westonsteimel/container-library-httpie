@@ -13,11 +13,11 @@ jobs:
       with:
         args: build -t "${DOCKER_USERNAME}/httpie:latest" .
     - name: Docker Tag
-      uses: actions/docker/cli@master
+      uses: actions/docker/tag@master
       env:
         DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
       with:
-        entrypoint: ./tag.sh
+        args: ${DOCKER_USERNAME}/httpie ${DOCKER_USERNAME}/httpie --no-ref
     - name: Login DockerHub
       uses: actions/docker/login@master
       env:
@@ -29,3 +29,4 @@ jobs:
         DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
       with:
         args: push "${DOCKER_USERNAME}/httpie"
+
