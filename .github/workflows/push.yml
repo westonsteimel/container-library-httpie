@@ -17,7 +17,7 @@ jobs:
       env:
         DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
       with:
-        args: ${DOCKER_USERNAME}/httpie ${DOCKER_USERNAME}/httpie --no-ref
+        args: ${DOCKER_USERNAME}/httpie ${DOCKER_USERNAME}/httpie --no-ref --no-sha
     - name: Login DockerHub
       uses: actions/docker/login@master
       env:
