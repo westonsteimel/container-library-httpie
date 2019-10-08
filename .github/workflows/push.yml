@@ -1,32 +1,22 @@
-on: push
+on: [push]
 name: Build and deploy on push
 jobs:
-  docker_build:
-    name: Docker Build
+  dockerhub_publish:
+    name: DockerHub Build and Publish
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
-    - name: Docker Build
-      uses: actions/docker/cli@master
-      env:
-        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+    - name: Build and Publish to DockerHub
+      uses: westonsteimel/action-docker-publish@master
       with:
-        args: build -t "${DOCKER_USERNAME}/httpie:latest" .
-    - name: Docker Tag
-      uses: actions/docker/tag@master
-      env:
-        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-      with:
-        args: ${DOCKER_USERNAME}/httpie ${DOCKER_USERNAME}/httpie --no-ref --no-sha
-    - name: Login DockerHub
-      uses: actions/docker/login@master
-      env:
-        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-    - name: Docker Push
-      uses: actions/docker/cli@master
-      env:
-        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-      with:
-        args: push "${DOCKER_USERNAME}/httpie"
-
+        registry: 'docker.io'
+        password: ${{ secrets.DOCKER_PASSWORD }}
+        username: ${{ secrets.DOCKER_USERNAME }}
+        image_name: 'httpie'
+        build_context: '.'
+        dockerfile_path: 'Dockerfile'
+        tag_ref: false
+        tag_latest: true
+        tag_version: true
+        tag_sha: false
+        tag_timestamp: false
