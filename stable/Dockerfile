@@ -12,7 +12,7 @@ RUN apk --no-cache add \
     && adduser -G httpie -s /bin/sh -D httpie
 
 USER httpie
-WORKDIR /home/httpie
+WORKDIR /home/httpie/Downloads
 
 ENTRYPOINT [ "http" ]
 
