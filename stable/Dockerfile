@@ -1,4 +1,4 @@
-ARG HTTPIE_VERSION="2.0.0"
+ARG HTTPIE_VERSION="2.1.0"
 
 FROM python:3-alpine
 
