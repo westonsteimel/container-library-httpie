@@ -12,7 +12,7 @@ RUN apk add --no-cache git \
     && adduser -G httpie -s /bin/sh -D httpie
 
 USER httpie
-RUN pip install --user --no-cache-dir "git+https://github.com/jakubroztocil/httpie@${GIT_REF}" httpie-unixsocket 
+RUN pip install --user --no-cache-dir "git+https://github.com/httpie/httpie@${GIT_REF}" httpie-unixsocket 
 
 FROM python:3-alpine
 

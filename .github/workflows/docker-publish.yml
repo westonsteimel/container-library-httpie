@@ -26,7 +26,7 @@ jobs:
       - name: Build and Publish stable to DockerHub
         run: |
           export DOCKER_BUILD_CONTEXT="stable"
-          export LATEST_RELEASE=`curl --silent "https://api.github.com/repos/jakubroztocil/httpie/releases/latest" | jq .tag_name | xargs`
+          export LATEST_RELEASE=`curl --silent "https://api.github.com/repos/httpie/httpie/releases/latest" | jq .tag_name | xargs`
           export DOCKER_IMAGE_VERSION="${LATEST_RELEASE}"
           export DOCKER_TAGS="stable,latest,${DOCKER_IMAGE_VERSION}"
           ./scripts/publish.sh
