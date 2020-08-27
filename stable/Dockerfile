@@ -1,13 +1,17 @@
-ARG HTTPIE_VERSION="2.2.0"
+ARG REVISION
+ARG CREATED
+ARG VERSION
+ARG GIT_REF="${VERSION}"
 
 FROM python:3-alpine
 
-ARG HTTPIE_VERSION
-ENV HTTPIE_VERSION "${HTTPIE_VERSION}"
+ARG REVISION
+ARG CREATED
+ARG VERSION
 
 RUN apk --no-cache add \
 	ca-certificates \
-	&& pip install httpie=="${HTTPIE_VERSION}" httpie-unixsocket \
+	&& pip install httpie=="${VERSION}" httpie-unixsocket \
     && addgroup httpie \
     && adduser -G httpie -s /bin/sh -D httpie
 
@@ -18,8 +22,8 @@ ENTRYPOINT [ "http" ]
 
 LABEL org.opencontainers.image.title="httpie" \
     org.opencontainers.image.description="httpie in Docker" \ 
-    org.opencontainers.image.url="https://github.com/westonsteimel/docker-httpie" \ 
-    org.opencontainers.image.source="https://github.com/westonsteimel/docker-httpie" \
-    org.opencontainers.image.version="${HTTPIE_VERSION}" \
-    version="${HTTPIE_VERSION}"
+    org.opencontainers.image.source="${SOURCE}" \
+    org.opencontainers.image.revision="${REVISION}" \
+    org.opencontainers.image.created="${CREATED}" \
+    org.opencontainers.image.version="${VERSION}"
 

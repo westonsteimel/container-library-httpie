@@ -1,20 +1,25 @@
-ARG HTTPIE_VERSION="master"
+ARG REVISION
+ARG CREATED
+ARG VERSION
+ARG GIT_REF="${VERSION}"
 
 FROM python:3-alpine as builder
 
-ARG HTTPIE_VERSION
-ENV HTTPIE_VERSION "${HTTPIE_VERSION}"
+ARG GIT_REF
 
 RUN apk add --no-cache git \
     && addgroup httpie \
     && adduser -G httpie -s /bin/sh -D httpie
 
 USER httpie
-RUN pip install --user --no-cache-dir "git+https://github.com/jakubroztocil/httpie@${HTTPIE_VERSION}" httpie-unixsocket 
+RUN pip install --user --no-cache-dir "git+https://github.com/jakubroztocil/httpie@${GIT_REF}" httpie-unixsocket 
 
 FROM python:3-alpine
 
-ARG HTTPIE_VERSION
+ARG VERSION
+ARG SOURCE
+ARG REVISION
+ARG CREATED
 
 RUN addgroup httpie \
     && adduser -G httpie -s /bin/sh -D httpie
@@ -29,8 +34,8 @@ CMD ["--help"]
 
 LABEL org.opencontainers.image.title="httpie" \
     org.opencontainers.image.description="httpie in Docker" \
-    org.opencontainers.image.url="https://github.com/westonsteimel/docker-httpie" \
-    org.opencontainers.image.source="https://github.com/westonsteimel/docker-httpie" \
-    org.opencontainers.image.version="${HTTPIE_VERSION}" \
-    version="${HTTPIE_VERSION}"
+    org.opencontainers.image.source="${SOURCE}" \
+    org.opencontainers.image.revision="${REVISION}" \
+    org.opencontainers.image.created="${CREATED}" \
+    org.opencontainers.image.version="${VERSION}"
 
