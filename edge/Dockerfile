@@ -3,7 +3,7 @@ ARG CREATED
 ARG VERSION
 ARG GIT_REF="${VERSION}"
 
-FROM python:3-alpine as builder
+FROM python:3.9-alpine as builder
 
 ARG GIT_REF
 
@@ -14,7 +14,7 @@ RUN apk add --no-cache git \
 USER httpie
 RUN pip install --user --no-cache-dir "git+https://github.com/httpie/httpie@${GIT_REF}" httpie-unixsocket 
 
-FROM python:3-alpine
+FROM python:3.9-alpine
 
 ARG VERSION
 ARG SOURCE
